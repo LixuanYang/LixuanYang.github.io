@@ -8,6 +8,10 @@ var dx = []; //cloud random y coordinate
 var tx = []; // star random x coordinate
 var ty = []; //star random y coordinate
 
+var currentminute = 0;
+var currenthour = 0;
+var currentsecond = 0;
+
 function setup() {
 	createCanvas(800,1000); // make an HTML canvas element width x height pixels
 	
@@ -35,19 +39,19 @@ function draw() {
 	//background depending on hour of day
 	if (currh>=12 && currh<18){
 		background(afternoon);
-		cloud();
+		cloud();//daytime, number of cloud grow by hour
 	}
 	else if (currh>=18 && currh<24){
 		background(evening);
-		drawstar();
+		drawstar();//nighttime, number of star grow by hour
 	}
 	else if (currh>=0 && currh<6){
 		background(night);
-		drawstar();
+		drawstar();//nighttime, number of star grow by hour
 	}
 	else{
 		background(morning);
-		cloud();
+		cloud();//daytime, number of cloud grow by hour
 	}
 
 	/*
@@ -63,6 +67,10 @@ function draw() {
 	text(currs, 10, 90);
 	*/
 
+	//eyelash grow by minutes
+	
+	eyelash(220, 417);
+    eyelash(320, 417);
 	
 	// two eyes rotate by seconds
 	push();
@@ -72,6 +80,7 @@ function draw() {
 	ellipseMode(CENTER);
 	ellipse(0,0,40);
 	rotate(2*PI*currs/60);
+	
 	noStroke();
 	fill(210,180,180);
 	ellipse(0,-10,10);
@@ -89,11 +98,12 @@ function draw() {
 	ellipse(0,-10,10);
 	pop();
 
-	//eyelash grow by minutes
-	
-	eyelash(220, 417);
-    eyelash(320, 417);
+	if (currs!=currentsecond){
+		console.log('current second', currs);
+		currentsecond = second();
+	}
 
+	//Static Shapes
 	//eyelid
 	push();
 	stroke(0);
@@ -146,6 +156,10 @@ function eyelash(x, y){
         line(41.5, -45, 41.5, -45 + (-1.25 * i));
     }
     pop();
+	if (m!=currentminute){
+		console.log('current minute:',m);
+		currentminute = minute();
+	}
 }
 
 function cloud(){
@@ -160,6 +174,11 @@ function cloud(){
 		ellipse(dx[i]+20,dy[i]+20,60,50);
 		ellipse(dx[i]+60,dy[i]+15,60,50);
 	}
+	
+	if (h!=currenthour){
+		console.log('current hour:',h);
+		currenthour = hour();
+	}
 }
 
 function drawstar(){
@@ -168,6 +187,10 @@ function drawstar(){
 		fill(255,255,0);
 		stroke(235);
 		star(tx[i],ty[i],30,70,5);
+	}
+	if (h!=currenthour){
+		console.log('current hour:',h);
+		currenthour = hour();
 	}
 }
 
