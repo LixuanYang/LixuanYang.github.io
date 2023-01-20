@@ -9,7 +9,7 @@ var tx = []; // star random x coordinate
 var ty = []; //star random y coordinate
 
 function setup() {
-	createCanvas(800,1400); // make an HTML canvas element width x height pixels
+	createCanvas(800,1000); // make an HTML canvas element width x height pixels
 	
 	morning = loadImage('morning.png');
 	afternoon = loadImage('afternoon.png');
@@ -22,9 +22,7 @@ function setup() {
 	  }
 	//during nighttime, for every hour randomly located star will pop up
 	 for (s=0; s<=23; s++){
-	   //tx[s] = random(75, 3*width-25)
 	   tx[s] = random(25, width-25)
-	   //ty[s] = random(75, 3*500-25)
 	   ty[s] = random(25, 500-25)
 	 }  
 	
